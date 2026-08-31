@@ -79,14 +79,14 @@ body {
         0 0 0 1.5px var(--card-border);
     transform: scale(1.03) translateY(-2px);
     transition:
-        transform 0.15s ease,
+        transform 0.8s ease,
         box-shadow 0.15s ease;
 }
 
 /* Active: press-down snaps quicker than hover lifts */
 .memory-card:active {
-    transform: scale(0.96);
-    transition: transform 0.1s ease;
+    transform: scale(.96);
+    transition: transform 0.5s ease;
 }
 
 /* Flipped state */

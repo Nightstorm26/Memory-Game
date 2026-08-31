@@ -1,5 +1,16 @@
 # Memory Game
 
+**Browser-based Memory Card Game — lightweight matching puzzle built with HTML, CSS & vanilla JavaScript**
+
+
+<!-- Badges: key topics -->
+
+[![memory-game](https://img.shields.io/badge/topic-memory--game-blue?style=flat-square)](https://github.com/topics/memory-game) [![javascript](https://img.shields.io/badge/language-javascript-yellow?style=flat-square)](https://github.com/topics/javascript) [![html](https://img.shields.io/badge/language-html-orange?style=flat-square)](https://github.com/topics/html) [![css](https://img.shields.io/badge/language-css-blueviolet?style=flat-square)](https://github.com/topics/css) [![responsive](https://img.shields.io/badge/responsive-design-green?style=flat-square)](https://github.com/topics/responsive-design) [![accessibility](https://img.shields.io/badge/accessibility-aria-lightgrey?style=flat-square)](https://github.com/topics/accessibility)
+
+
+**Topics:** `memory-game` `matching-game` `web-game` `javascript` `html` `css` `frontend` `vanilla-js` `responsive-design` `accessibility` `puzzle-game` `browser-game` `beginner-friendly` `localstorage`
+
+
 A simple browser-based memory (matching) game built with HTML, CSS and JavaScript.
 
 Players flip over pairs of cards to find matching images. The game tracks moves, time, and provides a final score. It's designed to be lightweight and easy to extend or theme.

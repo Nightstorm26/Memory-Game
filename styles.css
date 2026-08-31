@@ -1,56 +1,155 @@
+/* ── Slate & Teal preset — uncomment to activate ── */
+:root {
+    --board-center:  #112240;
+    --board-edge:    #0A1628;
+    --card-back:     #1B3658;
+    --card-front:    #0F2540;
+    --card-border:   #00B4A2;
+    --card-glow:     rgba(0, 180, 162, 0.2);
+    --card-pattern:  rgba(100, 255, 218, 0.05);
+    --shadow-deep:   rgba(0, 0, 0, 0.7);
+}
+
+
+
+/* ──────────────────────────────────────────────
+   BASE
+   ────────────────────────────────────────────── */
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
 }
 
-body{
+body {
     height: 100vh;
     display: flex;
-    background-color: #060AB2;
+    /* Replaced flat #060AB2 with a radial gradient for depth */
+    background: radial-gradient(
+        ellipse at center,
+        var(--board-center) 0%,
+        var(--board-edge) 100%
+    );
 }
 
-.memory-game{
+
+/* ──────────────────────────────────────────────
+   BOARD
+   ────────────────────────────────────────────── */
+.memory-game {
     width: 640px;
     height: 640px;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
-    position: relative; 
+    position: relative;
     perspective: 1000px;
+
+    /* Faint gold border frames the board */
+    border-radius: 12px;
+    padding: 4px;
+    outline: 1px solid rgba(201, 168, 76, 0.12);
 }
 
-.memory-card{
+
+/* ──────────────────────────────────────────────
+   CARD — base
+   ────────────────────────────────────────────── */
+.memory-card {
     width: calc(25% - 10px);
     height: calc(33.333% - 10px);
     margin: 5px;
     position: relative;
-    box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
     transform: scale(1);
     transform-style: preserve-3d;
-    transition: transform .5s;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    cursor: pointer;
+    border-radius: 8px;   /* was 5px — softer premium feel */
+
+    /* Replaced 1px flat shadow with layered shadow + faint gold ring */
+    box-shadow:
+        0 4px 14px var(--shadow-deep),
+        0 0 0 1px rgba(201, 168, 76, 0.12);
 }
 
-.memory-card:active{
-    transform: scale(0.97);
-    transition: transform 0.2s;
+/* Hover: gold ring brightens, card lifts slightly */
+.memory-card:hover {
+    box-shadow:
+        0 8px 24px var(--shadow-deep),
+        0 0 0 1.5px var(--card-border);
+    transform: scale(1.03) translateY(-2px);
+    transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
 }
 
-.memory-card.flip{
+/* Active: press-down snaps quicker than hover lifts */
+.memory-card:active {
+    transform: scale(0.96);
+    transition: transform 0.1s ease;
+}
+
+/* Flipped state */
+.memory-card.flip {
     transform: rotateY(180deg);
 }
 
-.front-face, 
-.back-face{
+/* Optional: add a .matched class in JS on disableCards() for a
+   persistent gold glow on matched pairs
+   firstCard.classList.add('matched');
+   secondCard.classList.add('matched'); */
+.memory-card.matched {
+    box-shadow:
+        0 4px 14px var(--shadow-deep),
+        0 0 12px 2px var(--card-glow),
+        0 0 0 1.5px var(--card-border);
+}
+
+
+/* ──────────────────────────────────────────────
+   CARD FACES — shared
+   ────────────────────────────────────────────── */
+.front-face,
+.back-face {
     width: 100%;
     height: 100%;
     padding: 20px;
     position: absolute;
-    border-radius: 5px;
-    background-color: #1C7CCC;
+    border-radius: 8px;         /* matches card radius */
     backface-visibility: hidden;
+    border: 1.5px solid var(--card-border);  /* gold trim on both faces */
 }
 
-.front-face{
+
+/* ──────────────────────────────────────────────
+   BACK FACE — the card design shown before flip
+   ────────────────────────────────────────────── */
+.back-face {
+    background-color: var(--card-back);
+
+    /* Subtle diagonal crosshatch in the accent color — adds tactile richness */
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            var(--card-pattern) 0px,
+            var(--card-pattern) 1px,
+            transparent 1px,
+            transparent 14px
+        ),
+        repeating-linear-gradient(
+            -45deg,
+            var(--card-pattern) 0px,
+            var(--card-pattern) 1px,
+            transparent 1px,
+            transparent 14px
+        );
+}
+
+
+/* ──────────────────────────────────────────────
+   FRONT FACE — icon side, revealed on flip
+   ────────────────────────────────────────────── */
+.front-face {
+    background-color: var(--card-front);
     transform: rotateY(180deg);
 }
